@@ -3,21 +3,27 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "dev": "turbo dev --parallel",
+    "test": "turbo test --parallel",
+    "start:dashboard": "turbo start --filter=@formemon/dashboard",
+    "dev:api": "turbo dev --filter=@midday/api",
+    "dev:dashboard": "turbo dev --filter=@formemon/dashboard",
+    "build:dashboard": "turbo build --filter=@formemon/dashboard",
+    "jobs:dashboard": "turbo jobs --filter=@formemon/dashboard",
+    "format": "biome format --write .",
+    "lint": "turbo lint && manypkg check",
+    "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
+    "@biomejs/biome": "^1.8.3",
     "turbo": "^2.0.14",
     "typescript": "^5.4.5"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.0.0 <21.0.0"
   },
   "packageManager": "bun@1.1.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "workspaces": ["apps/*", "packages/*"]
 }
